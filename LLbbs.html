@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ラブライバー集会場！シリーズ別掲示板（ローカル版）</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            background-color: #fff5f8;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #e4007f;
+            border-bottom: 3px solid #e4007f;
+            padding-bottom: 8px;
+        }
+        .box {
+            background: #fff;
+            border: 1px solid #f3c6d8;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .msg {
+            background: #e6f4ff;
+            border-left: 5px solid #1890ff;
+            padding: 10px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .form-row {
+            margin-bottom: 10px;
+        }
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        input[type="text"], input[type="password"], input[type="number"], select, textarea {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        .btn {
+            background-color: #e4007f;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        .btn:hover {
+            background-color: #c2006b;
+        }
+        .btn-sub {
+            background-color: #666;
+        }
+        .btn-sub:hover {
+            background-color: #444;
+        }
+        .image-upload-box {
+            background: #fdf6fa;
+            border: 1px dashed #e4007f;
+            border-radius: 6px;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+        .image-preview-wrap {
+            margin-top: 8px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+        .image-preview-wrap img {
+            max-width: 160px;
+            max-height: 120px;
+            border-radius: 6px;
+            border: 1px solid #f3c6d8;
+            object-fit: cover;
+        }
+        .clear-file-btn {
+            background: #fff;
+            border: 1px solid #999;
+            color: #555;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 0.8em;
+            cursor: pointer;
+        }
+        .post-image-wrap {
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+        .post-image-wrap img {
+            max-width: 100%;
+            max-height: 360px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            cursor: zoom-in;
+            display: block;
+        }
+        .spoiler-controls {
+            background: #fff8eb;
+            border: 1px dashed #faad14;
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+        .spoiler-controls-top {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .spoiler-check-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: bold;
+            color: #ad6800;
+            cursor: pointer;
+        }
+        .spoiler-tag-btn {
+            background: #fff;
+            border: 1px solid #d48806;
+            color: #ad6800;
+            border-radius: 4px;
+            padding: 4px 10px;
+            font-size: 0.85em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .spoiler-tag-btn:hover {
+            background: #fffbe6;
+        }
+        .spoiler-label-input {
+            margin-top: 8px;
+            display: none;
+        }
+        details.spoiler-box {
+            background: #fffbe6;
+            border: 1px solid #ffe58f;
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+        }
+        details.spoiler-box summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: #ad6800;
+            user-select: none;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        details.spoiler-box summary::-webkit-details-marker {
+            display: none;
+        }
+        details.spoiler-box summary::after {
+            content: "▼ クリックして開く";
+            font-size: 0.8em;
+            background: #faad14;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: auto;
+        }
+        details.spoiler-box[open] summary::after {
+            content: "▲ 閉じる";
+            background: #8c8c8c;
+        }
+        details.spoiler-box[open] summary {
+            border-bottom: 1px dashed #ffe58f;
+            padding-bottom: 6px;
+            margin-bottom: 8px;
+        }
+        .inline-spoiler {
+            background-color: #333;
+            color: transparent;
+            border-radius: 4px;
+            padding: 1px 6px;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .inline-spoiler::before {
+            content: "🙈ネタバレ ";
+            color: #ffd666;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .inline-spoiler.revealed {
+            background-color: #fff1b8;
+            color: #333;
+            user-select: text;
+        }
+        .inline-spoiler.revealed::before {
+            content: "";
+        }
+        .inline-spoiler-locked {
+            background-color: #222;
+            color: #ffd666;
+            border-radius: 4px;
+            padding: 1px 8px;
+            font-size: 0.85em;
+            font-weight: bold;
+            user-select: none;
+        }
+        .pickup-section {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff0f6 100%);
+            border: 2px solid #fadb14;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 24px;
+            box-shadow: 0 3px 8px rgba(250, 173, 20, 0.15);
+            display: none;
+        }
+        .pickup-title {
+            margin: 0 0 12px 0;
+            color: #d48806;
+            font-size: 1.15em;
+        }
+        .pickup-card {
+            background: #ffffff;
+            border: 1px solid #ffe58f;
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 10px;
+        }
+        .pickup-card:last-child {
+            margin-bottom: 0;
+        }
+        .rank-badge {
+            font-weight: bold;
+            font-size: 0.9em;
+            padding: 2px 8px;
+            border-radius: 12px;
+            background: #fffbe6;
+            border: 1px solid #ffe58f;
+            color: #ad6800;
+        }
+        .jump-link {
+            font-size: 0.8em;
+            color: #d48806;
+            text-decoration: underline;
+            margin-left: auto;
+            cursor: pointer;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+        .tab {
+            padding: 6px 12px;
+            background: #fff;
+            border: 1px solid #e4007f;
+            color: #e4007f;
+            border-radius: 20px;
+            font-size: 0.9em;
+            cursor: pointer;
+        }
+        .tab.active {
+            background: #e4007f;
+            color: #fff;
+            font-weight: bold;
+        }
+        .search-box {
+            background: #fff;
+            border: 1px solid #f3c6d8;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        .search-box input[type="text"] {
+            flex: 2;
+            min-width: 170px;
+        }
+        .search-box select {
+            flex: 1.5;
+            min-width: 150px;
+        }
+        .search-actions {
+            display: flex;
+            gap: 6px;
+        }
+        .quick-filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .toggle-pill-btn {
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 0.88em;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .spoiler-toggle-btn {
+            border: 2px solid #faad14;
+            background: #fff;
+            color: #ad6800;
+        }
+        .spoiler-toggle-btn.active {
+            background: #faad14;
+            color: #fff;
+        }
+        .image-toggle-btn {
+            border: 2px solid #1890ff;
+            background: #fff;
+            color: #096dd9;
+        }
+        .image-toggle-btn.active {
+            background: #1890ff;
+            color: #fff;
+        }
+        .spoiler-hidden-note {
+            font-size: 0.85em;
+            color: #ad6800;
+            font-weight: bold;
+        }
+        .list-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 12px;
+        }
+        .search-status {
+            color: #c2006b;
+            font-weight: bold;
+        }
+        .post-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-left: 5px solid #e4007f;
+            border-radius: 6px;
+            padding: 12px 15px;
+            margin-bottom: 12px;
+        }
+        .post-header {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+        }
+        .badge {
+            background: #ffe0ef;
+            color: #c2006b;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        .oshi-badge {
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.82em;
+            font-weight: bold;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .reply-badge {
+            background: #eef6ff;
+            color: #0066cc;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9em;
+            display: inline-block;
+            margin-bottom: 6px;
+            text-decoration: none;
+        }
+        .post-comment {
+            white-space: pre-wrap;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+        .post-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .like-btn {
+            background: #fff0f6;
+            border: 1px solid #ffadd2;
+            color: #eb2f96;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.85em;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            user-select: none;
+        }
+        .like-btn:hover {
+            background: #ffd6e7;
+        }
+        .like-btn.liked {
+            background: #eb2f96;
+            color: #ffffff;
+            border-color: #eb2f96;
+        }
+        .reply-link {
+            font-size: 0.8em;
+            color: #e4007f;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-left: auto;
+        }
+        .pagination {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            margin-top: 24px;
+            margin-bottom: 20px;
+        }
+        .page-link {
+            padding: 7px 13px;
+            background: #fff;
+            border: 1px solid #f3c6d8;
+            color: #e4007f;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9em;
+            cursor: pointer;
+        }
+        .page-link.active {
+            background: #e4007f;
+            border-color: #e4007f;
+            color: #fff;
+        }
+        .page-link.disabled {
+            background: #f5f5f5;
+            border-color: #e0e0e0;
+            color: #aaa;
+            pointer-events: none;
+        }
+        .flex-forms {
+            display: flex;
+            gap: 15px;
+        }
+        .flex-forms > div {
+            flex: 1;
+        }
+        .backup-bar {
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-top: 30px;
+            font-size: 0.88em;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        @media (max-width: 600px) {
+            .flex-forms, .form-grid-2 { grid-template-columns: 1fr; flex-direction: column; }
+            .search-box { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎀 ラブライバー集会場！掲示板</h1>
+    <p>推しへの愛、ライブの感想、聖地巡礼レポなど自由に語ろう！（※ブラウザ自動保存・サーバー不要版）</p>
+
+    <div id="msg_box" class="msg"></div>
+
+    <!-- 新規投稿・編集フォーム -->
+    <div class="box">
+        <h3 id="form_title">📝 新規投稿 / リプライ</h3>
+        <form id="post_form" onsubmit="handlePostSubmit(event)">
+            <input type="hidden" id="edit_target_id" value="">
+
+            <div class="form-grid-2">
+                <div>
+                    <label style="font-size: 0.85em; font-weight: bold;">シリーズ・カテゴリ：</label>
+                    <select id="category_select" onchange="filterOshiOptions()"></select>
+                </div>
+                <div>
+                    <label style="font-size: 0.85em; font-weight: bold;">推しメンバーバッジ：</label>
+                    <select id="oshi_select"></select>
+                </div>
+            </div>
+
+            <div class="form-row" style="display: flex; gap: 10px;">
+                <div style="flex: 2;">
+                    <input type="text" id="name_input" placeholder="名前（例：海未推しライバー）" required>
+                </div>
+                <div style="flex: 1;">
+                    <input type="number" id="reply_to_input" placeholder="リプ先番号（任意）">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <textarea id="comment_input" placeholder="コメントを入力（改行も反映されます）" required></textarea>
+            </div>
+
+            <!-- 画像添付エリア -->
+            <div class="image-upload-box">
+                <div style="margin-bottom: 6px;">
+                    <label for="image_input" style="font-weight: bold; color: #c2006b; cursor: pointer;">
+                        📷 写真・画像を添付（任意 / JPG・PNG・GIF・WEBP）
+                    </label>
+                </div>
+                <input type="file" id="image_input" accept="image/jpeg,image/png,image/gif,image/webp" onchange="previewImage(this)">
+
+                <div id="image_preview_wrap" class="image-preview-wrap">
+                    <img id="image_preview_img" src="" alt="選択画像のプレビュー">
+                    <button type="button" class="clear-file-btn" onclick="clearSelectedImage()">選択を取り消す</button>
+                </div>
+
+                <div id="existing_image_wrap" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed #f3c6d8;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 4px;">現在添付されている画像：</div>
+                    <img id="existing_image_img" src="" alt="現在の添付画像" style="max-width: 140px; max-height: 100px; border-radius: 4px; display: block; margin-bottom: 4px;">
+                    <label style="font-size: 0.85em; color: #cf1322; cursor: pointer;">
+                        <input type="checkbox" id="remove_image_cb"> この添付画像を削除する
+                    </label>
+                </div>
+            </div>
+
+            <!-- ネタバレ防止（スポイラー）設定 -->
+            <div class="spoiler-controls">
+                <div class="spoiler-controls-top">
+                    <label class="spoiler-check-label">
+                        <input type="checkbox" id="is_spoiler_cb" onchange="toggleSpoilerLabelInput()">
+                        ⚠️ 投稿全体をネタバレ折りたたみ（クリックで開く）にする
+                    </label>
+                    <button type="button" class="spoiler-tag-btn" onclick="wrapWithSpoiler()">
+                        🙈 一部だけ伏せ字にする ([spoiler])
+                    </button>
+                </div>
+                <div id="spoiler_label_box" class="spoiler-label-input">
+                    <input type="text" id="spoiler_label_input" placeholder="ネタバレの注意書きタイトル（例：〇〇ライブDay1セトリネタバレ注意！）">
+                </div>
+            </div>
+
+            <div class="form-row" style="display: flex; gap: 10px;">
+                <input type="password" id="pass_input" placeholder="編集・削除用パスワード（任意）" style="flex: 1;">
+                <button type="submit" id="submit_btn" class="btn">投稿する</button>
+                <button type="button" id="cancel_edit_btn" class="btn btn-sub" style="display: none;" onclick="cancelEdit()">キャンセル</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- 削除・編集指定フォーム -->
+    <div class="flex-forms">
+        <div class="box">
+            <h4>🗑️ 投稿削除</h4>
+            <form onsubmit="handleDeleteSubmit(event)">
+                <div class="form-row"><input type="number" id="delete_id_input" placeholder="削除対象番号" required></div>
+                <div class="form-row"><input type="password" id="delete_pass_input" placeholder="パスワード" required></div>
+                <button type="submit" class="btn btn-sub">削除</button>
+            </form>
+        </div>
+
+        <div class="box">
+            <h4>🔧 投稿編集</h4>
+            <form onsubmit="handleEditLoad(event)">
+                <div class="form-row"><input type="number" id="edit_id_input" placeholder="編集対象番号" required></div>
+                <div class="form-row"><input type="password" id="edit_pass_input" placeholder="パスワード" required></div>
+                <button type="submit" class="btn btn-sub">編集呼出</button>
+            </form>
+        </div>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #f3c6d8; margin: 20px 0;">
+
+    <!-- 人気の投稿ピックアップ（尊い！トップ3） -->
+    <div id="pickup_section" class="pickup-section">
+        <h3 class="pickup-title">👑 人気の投稿ピックアップ（尊い！TOP3）</h3>
+        <div id="pickup_list"></div>
+    </div>
+
+    <!-- カテゴリ絞り込みタブ -->
+    <h2 id="list-top">💬 投稿一覧（新着順）</h2>
+    <div id="category_tabs" class="tabs"></div>
+
+    <!-- キーワード・推しメンバー検索フォーム -->
+    <form onsubmit="handleSearchSubmit(event)" class="search-box">
+        <input type="text" id="search_q_input" placeholder="🔍 キーワード検索（名前・本文・推し名）">
+        <select id="search_oshi_select"></select>
+        <div class="search-actions">
+            <button type="submit" class="btn">検索</button>
+            <button type="button" id="clear_search_btn" class="btn btn-sub" style="display: none;" onclick="clearSearch()">解除</button>
+        </div>
+    </form>
+
+    <!-- クイックトグルフィルターバー -->
+    <div class="quick-filter-bar">
+        <button type="button" id="spoiler_toggle_btn" class="toggle-pill-btn spoiler-toggle-btn" onclick="toggleHideSpoiler()">
+            🛡️ ネタバレ回避モード：OFF（隠す）
+        </button>
+        <button type="button" id="image_toggle_btn" class="toggle-pill-btn image-toggle-btn" onclick="toggleOnlyImage()">
+            📷 画像付き投稿のみ：OFF（写真だけ表示）
+        </button>
+        <span id="spoiler_hidden_note" class="spoiler-hidden-note" style="display: none;"></span>
+    </div>
+
+    <!-- 件数・ページ情報 -->
+    <div class="list-meta">
+        <div id="list_count_info">全 0 件</div>
+        <div id="search_status_info" class="search-status"></div>
+    </div>
+
+    <!-- 投稿リスト -->
+    <div id="posts_container"></div>
+
+    <!-- ページネーション -->
+    <nav id="pagination_nav" class="pagination" aria-label="ページ送り"></nav>
+
+    <!-- データバックアップ・復元バー -->
+    <div class="backup-bar">
+        <span>💾 データ管理（ブラウザ保存用バックアップ）</span>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button type="button" class="btn btn-sub" style="font-size: 0.85em; padding: 6px 12px;" onclick="exportJson()">JSON書き出し</button>
+            <label class="btn btn-sub" style="font-size: 0.85em; padding: 6px 12px; cursor: pointer;">
+                JSON読み込み
+                <input type="file" accept=".json,application/json" style="display: none;" onchange="importJson(this)">
+            </label>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'lovelive_bbs_posts_v1';
+        const PER_PAGE = 10;
+
+        const CATEGORIES = {
+            all: 'すべて表示',
+            muse: "μ's（無印）",
+            aqours: 'Aqours（サンシャイン!!）',
+            niji: '虹ヶ咲学園スクールアイドル同好会',
+            liella: 'Liella!（スーパースター!!）',
+            hasu: '蓮ノ空女学院スクールアイドルクラブ',
+            ikizulive: 'イキヅライブ！ LOVELIVE! BLUEBIRD',
+            other: 'その他・シリーズ横断・ライブ感想'
+        };
+
+        const MEMBERS = {
+            none: { name: '選択なし（箱推し・DD）', bg: '#e0e0e0', color: '#333333', group: 'all' },
+            // μ's
+            honoka: { name: '高坂 穂乃果', bg: '#ffa300', color: '#ffffff', group: 'muse' },
+            eli: { name: '絢瀬 絵里', bg: '#36b3dd', color: '#ffffff', group: 'muse' },
+            kotori: { name: '南 ことり', bg: '#8c9395', color: '#ffffff', group: 'muse' },
+            umi: { name: '園田 海未', bg: '#1769ff', color: '#ffffff', group: 'muse' },
+            rin: { name: '星空 凛', bg: '#f1c40f', color: '#333333', group: 'muse' },
+            maki: { name: '西木野 真姫', bg: '#ff3b30', color: '#ffffff', group: 'muse' },
+            nozomi: { name: '東條 希', bg: '#8e44ad', color: '#ffffff', group: 'muse' },
+            hanayo: { name: '小泉 花陽', bg: '#2ecc71', color: '#ffffff', group: 'muse' },
+            nico: { name: '矢澤 にこ', bg: '#ff69b4', color: '#ffffff', group: 'muse' },
+            // Aqours
+            chika: { name: '高海 千歌', bg: '#ff7900', color: '#ffffff', group: 'aqours' },
+            riko: { name: '桜内 梨子', bg: '#ff99a8', color: '#333333', group: 'aqours' },
+            kanan: { name: '松浦 果南', bg: '#13e8ae', color: '#333333', group: 'aqours' },
+            dia: { name: '黒澤 ダイヤ', bg: '#f23b4c', color: '#ffffff', group: 'aqours' },
+            you: { name: '渡辺 曜', bg: '#49b9f9', color: '#ffffff', group: 'aqours' },
+            yoshiko: { name: '津島 善子', bg: '#898989', color: '#ffffff', group: 'aqours' },
+            hanamaru: { name: '国木田 花丸', bg: '#e6d617', color: '#333333', group: 'aqours' },
+            mari: { name: '小原 鞠莉', bg: '#a530e0', color: '#ffffff', group: 'aqours' },
+            ruby: { name: '黒澤 ルビィ', bg: '#ff69b4', color: '#ffffff', group: 'aqours' },
+            // 虹ヶ咲
+            ayumu: { name: '上原 歩夢', bg: '#ed7d95', color: '#ffffff', group: 'niji' },
+            kasumi: { name: '中須 かすみ', bg: '#e7d600', color: '#333333', group: 'niji' },
+            shizuku: { name: '桜坂 しずく', bg: '#01b7ed', color: '#ffffff', group: 'niji' },
+            karin: { name: '朝香 果林', bg: '#485ec6', color: '#ffffff', group: 'niji' },
+            ai: { name: '宮下 愛', bg: '#ff5800', color: '#ffffff', group: 'niji' },
+            kanata: { name: '近江 彼方', bg: '#a664a0', color: '#ffffff', group: 'niji' },
+            setsuna: { name: '優木 せつ菜', bg: '#d81c2f', color: '#ffffff', group: 'niji' },
+            emma: { name: 'エマ・ヴェルデ', bg: '#84c36e', color: '#ffffff', group: 'niji' },
+            rina: { name: '天王寺 璃奈', bg: '#9ca5b9', color: '#ffffff', group: 'niji' },
+            shioriko: { name: '三船 栞子', bg: '#37bs
