@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ラブライバー集会場！シリーズ別掲示板（ローカル版）</title>
+    <title>ラブライバー集会場！シリーズ別掲示板（ローカルPWA版）</title>
+    <!-- PWA（ホーム画面アプリ化・全画面起動）用メタタグ -->
+    <meta name="theme-color" content="#e4007f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="ラブライバー掲示板">
+    <link id="apple_touch_icon" rel="apple-touch-icon" href="">
+    <link id="pwa_manifest" rel="manifest" href="">
     <style>
         body {
             font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
             background-color: #fff5f8;
+            color: #333;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
@@ -509,7 +517,7 @@
 <body>
 
     <h1>🎀 ラブライバー集会場！掲示板</h1>
-    <p>推しへの愛、ライブの感想、聖地巡礼レポなど自由に語ろう！（※ブラウザ自動保存・サーバー不要版）</p>
+    <p>推しへの愛、ライブの感想、聖地巡礼レポなど自由に語ろう！（※ブラウザ自動保存・PWA対応版）</p>
 
     <div id="msg_box" class="msg"></div>
 
@@ -715,4 +723,795 @@
             setsuna: { name: '優木 せつ菜', bg: '#d81c2f', color: '#ffffff', group: 'niji' },
             emma: { name: 'エマ・ヴェルデ', bg: '#84c36e', color: '#ffffff', group: 'niji' },
             rina: { name: '天王寺 璃奈', bg: '#9ca5b9', color: '#ffffff', group: 'niji' },
-            shioriko: { name: '三船 栞子', bg: '#37bs
+            shioriko: { name: '三船 栞子', bg: '#37b484', color: '#ffffff', group: 'niji' },
+            mia: { name: 'ミア・テイラー', bg: '#d6d5ca', color: '#333333', group: 'niji' },
+            lanzhu: { name: '鐘 嵐珠', bg: '#f8c8c4', color: '#333333', group: 'niji' },
+            yu: { name: '高咲 侑', bg: '#1d1d1d', color: '#ffffff', group: 'niji' },
+            // Liella!
+            kanon: { name: '澁谷 かのん', bg: '#ff7f27', color: '#ffffff', group: 'liella' },
+            keke: { name: '唐 可可', bg: '#a0d8ef', color: '#333333', group: 'liella' },
+            chisato: { name: '嵐 千砂都', bg: '#ff6e90', color: '#ffffff', group: 'liella' },
+            sumire: { name: '平安名 すみれ', bg: '#74f466', color: '#333333', group: 'liella' },
+            ren: { name: '葉月 恋', bg: '#0000a0', color: '#ffffff', group: 'liella' },
+            kinako: { name: '桜小路 きな子', bg: '#fff442', color: '#333333', group: 'liella' },
+            mei: { name: '米女 メイ', bg: '#ff3535', color: '#ffffff', group: 'liella' },
+            shiki: { name: '若菜 四季', bg: '#b2ffdd', color: '#333333', group: 'liella' },
+            natsumi: { name: '鬼塚 夏美', bg: '#ff51c4', color: '#ffffff', group: 'liella' },
+            wien: { name: 'ウィーン・マルガレーテ', bg: '#e49be4', color: '#333333', group: 'liella' },
+            tomari: { name: '鬼塚 冬毬', bg: '#4cd2e2', color: '#333333', group: 'liella' },
+            // 蓮ノ空
+            kaho: { name: '日野下 花帆', bg: '#f8b500', color: '#ffffff', group: 'hasu' },
+            sayaka: { name: '村野 さやか', bg: '#5383c3', color: '#ffffff', group: 'hasu' },
+            kozue: { name: '乙宗 梢', bg: '#68be8d', color: '#ffffff', group: 'hasu' },
+            tsuzuri: { name: '夕霧 綴理', bg: '#ba2636', color: '#ffffff', group: 'hasu' },
+            rurino: { name: '大沢 瑠璃乃', bg: '#e7609e', color: '#ffffff', group: 'hasu' },
+            megumi: { name: '藤島 慈', bg: '#c8c2c6', color: '#333333', group: 'hasu' },
+            ginko: { name: '百生 吟子', bg: '#a2d7dd', color: '#333333', group: 'hasu' },
+            kosuzu: { name: '徒町 小鈴', bg: '#fad764', color: '#333333', group: 'hasu' },
+            hime: { name: '安養寺 姫芽', bg: '#9d8de2', color: '#ffffff', group: 'hasu' },
+            // イキヅライブ！
+            polka: { name: '高橋 ポルカ', bg: '#00a0e9', color: '#ffffff', group: 'ikizulive' },
+            mai: { name: '麻布 麻衣', bg: '#2b547e', color: '#ffffff', group: 'ikizulive' },
+            akira: { name: '五桐 玲', bg: '#43a047', color: '#ffffff', group: 'ikizulive' },
+            hanabi: { name: '駒形 花火', bg: '#e53935', color: '#ffffff', group: 'ikizulive' },
+            miracle: { name: '金澤 奇跡', bg: '#fdd835', color: '#333333', group: 'ikizulive' },
+            noriko: { name: '調布 のりこ', bg: '#ab47bc', color: '#ffffff', group: 'ikizulive' },
+            yukuri: { name: '春宮 ゆくり', bg: '#f48fb1', color: '#333333', group: 'ikizulive' },
+            aurora: { name: '此花 輝夜', bg: '#80deea', color: '#333333', group: 'ikizulive' },
+            midori: { name: '山田 真緑', bg: '#81c784', color: '#333333', group: 'ikizulive' },
+            shion: { name: '佐々木 翔音', bg: '#b0bec5', color: '#333333', group: 'ikizulive' }
+        };
+
+        let state = {
+            cat: 'all',
+            q: '',
+            oshi: 'all',
+            hideSpoiler: false,
+            onlyImage: false,
+            page: 1,
+            selectedImageDataUrl: null,
+            likedIds: new Set()
+        };
+
+        function loadPosts() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                const parsed = raw ? JSON.parse(raw) : [];
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function savePosts(posts) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+                return true;
+            } catch (e) {
+                alert('ブラウザの保存容量上限に達しました。古い画像付き投稿を削除するかJSON書き出しを行ってください。');
+                return false;
+            }
+        }
+
+        async function hashPassword(plain) {
+            if (!plain) return '';
+            if (window.crypto && window.crypto.subtle) {
+                const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(plain));
+                return 'sha256:' + Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+            }
+            return plain;
+        }
+
+        async function verifyPassword(inputPlain, storedPass) {
+            if (!inputPlain || !storedPass) return false;
+            if (storedPass.startsWith('sha256:')) {
+                return (await hashPassword(inputPlain)) === storedPass;
+            }
+            return inputPlain === storedPass;
+        }
+
+        function showMessage(text) {
+            const box = document.getElementById('msg_box');
+            box.textContent = text;
+            box.style.display = 'block';
+            box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function escapeHtml(str) {
+            return String(str ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function formatComment(text, hideSpoilers) {
+            const escaped = escapeHtml(text);
+            if (hideSpoilers) {
+                return escaped.replace(
+                    /\[spoiler\]([\s\S]*?)\[\/spoiler\]/g,
+                    '<span class="inline-spoiler-locked" title="ネタバレ回避モードONのためロックされています">🙈 ネタバレ回避中</span>'
+                );
+            }
+            return escaped.replace(
+                /\[spoiler\]([\s\S]*?)\[\/spoiler\]/g,
+                '<span class="inline-spoiler" onclick="this.classList.toggle(\'revealed\')" title="クリックでネタバレを表示/非表示">$1</span>'
+            );
+        }
+
+        function nowFormatted() {
+            const d = new Date();
+            const pad = n => String(n).padStart(2, '0');
+            return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+        }
+
+        function initSelects() {
+            const catSelect = document.getElementById('category_select');
+            const oshiSelect = document.getElementById('oshi_select');
+            const searchOshiSelect = document.getElementById('search_oshi_select');
+
+            catSelect.innerHTML = Object.entries(CATEGORIES)
+                .filter(([k]) => k !== 'all')
+                .map(([k, label]) => `<option value="${k}">${escapeHtml(label)}</option>`)
+                .join('');
+
+            oshiSelect.innerHTML = Object.entries(MEMBERS)
+                .map(([k, info]) => `<option value="${k}" data-group="${info.group}">${escapeHtml(info.name)}</option>`)
+                .join('');
+
+            searchOshiSelect.innerHTML = '<option value="all">すべての推しメンバー</option>' +
+                Object.entries(MEMBERS)
+                    .filter(([k]) => k !== 'none')
+                    .map(([k, info]) => `<option value="${k}">${escapeHtml(info.name)}推し</option>`)
+                    .join('');
+        }
+
+        function filterOshiOptions() {
+            const selectedCat = document.getElementById('category_select').value;
+            const oshiSelect = document.getElementById('oshi_select');
+            for (const opt of oshiSelect.options) {
+                const group = opt.getAttribute('data-group');
+                if (group === 'all' || selectedCat === 'other' || group === selectedCat) {
+                    opt.style.display = '';
+                    opt.disabled = false;
+                } else {
+                    opt.style.display = 'none';
+                    opt.disabled = true;
+                }
+            }
+            if (oshiSelect.options[oshiSelect.selectedIndex]?.disabled) {
+                oshiSelect.value = 'none';
+            }
+        }
+
+        function toggleSpoilerLabelInput() {
+            const cb = document.getElementById('is_spoiler_cb');
+            document.getElementById('spoiler_label_box').style.display = cb.checked ? 'block' : 'none';
+        }
+
+        function wrapWithSpoiler() {
+            const textarea = document.getElementById('comment_input');
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const text = textarea.value;
+            const selected = text.substring(start, end) || 'ここにネタバレ内容を入力';
+            const replacement = '[spoiler]' + selected + '[/spoiler]';
+            textarea.value = text.substring(0, start) + replacement + text.substring(end);
+            textarea.focus();
+            textarea.setSelectionRange(start + 9, start + 9 + selected.length);
+        }
+
+        function previewImage(input) {
+            const wrap = document.getElementById('image_preview_wrap');
+            const img = document.getElementById('image_preview_img');
+            if (!input.files || !input.files[0]) {
+                state.selectedImageDataUrl = null;
+                wrap.style.display = 'none';
+                return;
+            }
+            const file = input.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const tempImg = new Image();
+                tempImg.onload = function() {
+                    const maxDim = 1000;
+                    let w = tempImg.width;
+                    let h = tempImg.height;
+                    if (w > maxDim || h > maxDim) {
+                        if (w > h) {
+                            h = Math.round(h * maxDim / w);
+                            w = maxDim;
+                        } else {
+                            w = Math.round(w * maxDim / h);
+                            h = maxDim;
+                        }
+                    }
+                    const canvas = document.createElement('canvas');
+                    canvas.width = w;
+                    canvas.height = h;
+                    canvas.getContext('2d').drawImage(tempImg, 0, 0, w, h);
+                    const compressed = canvas.toDataURL('image/jpeg', 0.82);
+                    state.selectedImageDataUrl = compressed;
+                    img.src = compressed;
+                    wrap.style.display = 'flex';
+                };
+                tempImg.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearSelectedImage() {
+            document.getElementById('image_input').value = '';
+            document.getElementById('image_preview_wrap').style.display = 'none';
+            state.selectedImageDataUrl = null;
+        }
+
+        function setReply(id) {
+            const replyInput = document.getElementById('reply_to_input');
+            replyInput.value = id;
+            replyInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            document.getElementById('comment_input').focus();
+        }
+
+        function resetForm() {
+            document.getElementById('edit_target_id').value = '';
+            document.getElementById('form_title').textContent = '📝 新規投稿 / リプライ';
+            document.getElementById('submit_btn').textContent = '投稿する';
+            document.getElementById('cancel_edit_btn').style.display = 'none';
+            document.getElementById('name_input').value = '';
+            document.getElementById('reply_to_input').value = '';
+            document.getElementById('comment_input').value = '';
+            document.getElementById('pass_input').value = '';
+            document.getElementById('pass_input').placeholder = '編集・削除用パスワード（任意）';
+            document.getElementById('is_spoiler_cb').checked = false;
+            document.getElementById('spoiler_label_input').value = '';
+            document.getElementById('existing_image_wrap').style.display = 'none';
+            document.getElementById('remove_image_cb').checked = false;
+            toggleSpoilerLabelInput();
+            clearSelectedImage();
+            if (state.cat !== 'all') {
+                document.getElementById('category_select').value = state.cat;
+                filterOshiOptions();
+            }
+        }
+
+        function cancelEdit() {
+            resetForm();
+            showMessage('編集モードをキャンセルしました。');
+        }
+
+        async function handlePostSubmit(e) {
+            e.preventDefault();
+            const editTargetId = document.getElementById('edit_target_id').value;
+            const category = document.getElementById('category_select').value;
+            const oshi = document.getElementById('oshi_select').value;
+            const name = document.getElementById('name_input').value.trim();
+            const replyRaw = document.getElementById('reply_to_input').value.trim();
+            const replyTo = replyRaw !== '' ? parseInt(replyRaw, 10) : null;
+            const comment = document.getElementById('comment_input').value.trim();
+            const isSpoiler = document.getElementById('is_spoiler_cb').checked;
+            const spoilerLabel = document.getElementById('spoiler_label_input').value.trim();
+            const rawPass = document.getElementById('pass_input').value;
+            const removeImage = document.getElementById('remove_image_cb').checked;
+
+            if (!name || !comment) {
+                showMessage('名前とコメントは必須です。');
+                return;
+            }
+
+            const posts = loadPosts();
+
+            if (!editTargetId) {
+                const maxId = posts.reduce((max, p) => Math.max(max, Number(p.id) || 0), 0);
+                const newId = maxId + 1;
+                const hashedPass = await hashPassword(rawPass);
+
+                posts.push({
+                    id: newId,
+                    category,
+                    oshi,
+                    reply_to: replyTo,
+                    name,
+                    comment,
+                    image: state.selectedImageDataUrl || null,
+                    is_spoiler: isSpoiler,
+                    spoiler_label: spoilerLabel,
+                    date: nowFormatted(),
+                    pass: hashedPass,
+                    likes: 0
+                });
+
+                if (savePosts(posts)) {
+                    state.page = 1;
+                    resetForm();
+                    render();
+                    showMessage(`新規投稿（No.${newId}）を受け付けました！`);
+                }
+            } else {
+                const targetId = parseInt(editTargetId, 10);
+                const target = posts.find(p => Number(p.id) === targetId);
+                if (!target) {
+                    showMessage('編集対象の投稿が見つかりません。');
+                    return;
+                }
+
+                let nextImage = target.image || null;
+                if (state.selectedImageDataUrl) {
+                    nextImage = state.selectedImageDataUrl;
+                } else if (removeImage) {
+                    nextImage = null;
+                }
+
+                const nextPass = rawPass !== '' ? await hashPassword(rawPass) : (target.pass || '');
+
+                target.category = category;
+                target.oshi = oshi;
+                target.reply_to = replyTo;
+                target.name = name;
+                target.comment = comment;
+                target.image = nextImage;
+                target.is_spoiler = isSpoiler;
+                target.spoiler_label = spoilerLabel;
+                target.date = nowFormatted() + ' (編集済)';
+                target.pass = nextPass;
+
+                if (savePosts(posts)) {
+                    resetForm();
+                    render();
+                    showMessage(`投稿番号 ${targetId} を編集しました！`);
+                }
+            }
+        }
+
+        async function handleDeleteSubmit(e) {
+            e.preventDefault();
+            const deleteId = parseInt(document.getElementById('delete_id_input').value, 10);
+            const deletePass = document.getElementById('delete_pass_input').value;
+            const posts = loadPosts();
+            const idx = posts.findIndex(p => Number(p.id) === deleteId);
+
+            if (idx === -1) {
+                showMessage('指定された投稿番号が見つかりません。');
+                return;
+            }
+            if (await verifyPassword(deletePass, posts[idx].pass)) {
+                posts.splice(idx, 1);
+                savePosts(posts);
+                document.getElementById('delete_id_input').value = '';
+                document.getElementById('delete_pass_input').value = '';
+                render();
+                showMessage(`投稿番号 ${deleteId} を削除しました。`);
+            } else {
+                showMessage('パスワードが一致しないか、パスワード未設定の投稿のため削除できません。');
+            }
+        }
+
+        async function handleEditLoad(e) {
+            e.preventDefault();
+            const editId = parseInt(document.getElementById('edit_id_input').value, 10);
+            const editPass = document.getElementById('edit_pass_input').value;
+            const posts = loadPosts();
+            const target = posts.find(p => Number(p.id) === editId);
+
+            if (!target) {
+                showMessage('指定された投稿番号が見つかりません。');
+                return;
+            }
+            if (await verifyPassword(editPass, target.pass)) {
+                document.getElementById('edit_target_id').value = target.id;
+                document.getElementById('form_title').textContent = `✏️ 投稿 No.${target.id} を編集中`;
+                document.getElementById('submit_btn').textContent = '更新する';
+                document.getElementById('cancel_edit_btn').style.display = 'inline-block';
+
+                document.getElementById('category_select').value = target.category || 'other';
+                filterOshiOptions();
+                document.getElementById('oshi_select').value = target.oshi || 'none';
+                document.getElementById('name_input').value = target.name || '';
+                document.getElementById('reply_to_input').value = target.reply_to || '';
+                document.getElementById('comment_input').value = target.comment || '';
+                document.getElementById('is_spoiler_cb').checked = Boolean(target.is_spoiler);
+                document.getElementById('spoiler_label_input').value = target.spoiler_label || '';
+                toggleSpoilerLabelInput();
+
+                document.getElementById('pass_input').value = '';
+                document.getElementById('pass_input').placeholder = '新しいパスワード（変更しない場合は空欄）';
+                document.getElementById('remove_image_cb').checked = false;
+                clearSelectedImage();
+
+                if (target.image) {
+                    document.getElementById('existing_image_img').src = target.image;
+                    document.getElementById('existing_image_wrap').style.display = 'block';
+                } else {
+                    document.getElementById('existing_image_wrap').style.display = 'none';
+                }
+
+                document.getElementById('edit_id_input').value = '';
+                document.getElementById('edit_pass_input').value = '';
+                showMessage(`投稿番号 ${editId} の編集モードです。上のフォームから内容を書き換えて送信してください。`);
+            } else {
+                showMessage('パスワードが一致しないか、パスワード未設定の投稿のため編集できません。');
+            }
+        }
+
+        function sendLike(id) {
+            const posts = loadPosts();
+            const target = posts.find(p => Number(p.id) === Number(id));
+            if (!target) return;
+            target.likes = (Number(target.likes) || 0) + 1;
+            state.likedIds.add(Number(id));
+            savePosts(posts);
+            render();
+        }
+
+        function selectCategory(cat) {
+            state.cat = cat;
+            state.page = 1;
+            if (cat !== 'all' && !document.getElementById('edit_target_id').value) {
+                document.getElementById('category_select').value = cat;
+                filterOshiOptions();
+            }
+            render();
+        }
+
+        function handleSearchSubmit(e) {
+            e.preventDefault();
+            state.q = document.getElementById('search_q_input').value.trim();
+            state.oshi = document.getElementById('search_oshi_select').value;
+            state.page = 1;
+            render();
+        }
+
+        function clearSearch() {
+            state.q = '';
+            state.oshi = 'all';
+            state.page = 1;
+            document.getElementById('search_q_input').value = '';
+            document.getElementById('search_oshi_select').value = 'all';
+            render();
+        }
+
+        function toggleHideSpoiler() {
+            state.hideSpoiler = !state.hideSpoiler;
+            state.page = 1;
+            render();
+        }
+
+        function toggleOnlyImage() {
+            state.onlyImage = !state.onlyImage;
+            state.page = 1;
+            render();
+        }
+
+        function changePage(page) {
+            state.page = page;
+            render();
+            document.getElementById('list-top').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function jumpToPost(id) {
+            const el = document.getElementById('post-' + id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                state.cat = 'all';
+                state.q = '';
+                state.oshi = 'all';
+                state.onlyImage = false;
+                state.page = 1;
+                render();
+                setTimeout(() => {
+                    document.getElementById('post-' + id)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 50);
+            }
+        }
+
+        function buildPostBodyHtml(row) {
+            const isSpoiler = Boolean(row.is_spoiler);
+            const spoilerTitle = row.spoiler_label ? escapeHtml(row.spoiler_label) : 'ネタバレ注意！内容を表示する';
+            const commentHtml = `<div class="post-comment">${formatComment(row.comment, state.hideSpoiler)}</div>`;
+            const imageHtml = row.image
+                ? `<div class="post-image-wrap"><img src="${escapeHtml(row.image)}" alt="添付画像" onclick="window.open(this.src, '_blank')"></div>`
+                : '';
+
+            if (isSpoiler) {
+                return `<details class="spoiler-box"><summary>⚠️ ${spoilerTitle}</summary>${commentHtml}${imageHtml}</details>`;
+            }
+            return commentHtml + imageHtml;
+        }
+
+        function render() {
+            const posts = loadPosts();
+
+            // 1. 人気TOP3
+            const topCandidates = posts
+                .filter(p => (Number(p.likes) || 0) > 0 && (!state.hideSpoiler || !p.is_spoiler))
+                .sort((a, b) => (Number(b.likes) - Number(a.likes)) || (Number(b.id) - Number(a.id)))
+                .slice(0, 3);
+
+            const pickupSection = document.getElementById('pickup_section');
+            const pickupList = document.getElementById('pickup_list');
+            if (topCandidates.length > 0) {
+                const medals = ['🥇 1位', '🥈 2位', '🥉 3位'];
+                pickupList.innerHTML = topCandidates.map((row, idx) => {
+                    const catName = CATEGORIES[row.category] || 'その他';
+                    const oshiInfo = (row.oshi && row.oshi !== 'none' && MEMBERS[row.oshi]) ? MEMBERS[row.oshi] : null;
+                    const oshiBadge = oshiInfo
+                        ? `<span class="oshi-badge" style="background-color:${oshiInfo.bg};color:${oshiInfo.color};">♥ ${escapeHtml(oshiInfo.name)}推し</span>`
+                        : '';
+                    const likedClass = state.likedIds.has(Number(row.id)) ? 'liked' : '';
+                    return `
+                        <div class="pickup-card">
+                            <div class="post-header">
+                                <span class="rank-badge">${medals[idx]}</span>
+                                <strong>No.${row.id}</strong>
+                                <span class="badge">${escapeHtml(catName)}</span>
+                                <strong>${escapeHtml(row.name)}</strong>
+                                ${oshiBadge}
+                                <span class="jump-link" onclick="jumpToPost(${row.id})">元の投稿へ移動 ↓</span>
+                            </div>
+                            ${buildPostBodyHtml(row)}
+                            <div class="post-footer">
+                                <button type="button" class="like-btn ${likedClass}" onclick="sendLike(${row.id})">
+                                    🙏 尊い！ <span>${Number(row.likes) || 0}</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                pickupSection.style.display = 'block';
+            } else {
+                pickupSection.style.display = 'none';
+            }
+
+            // 2. カテゴリタブ
+            document.getElementById('category_tabs').innerHTML = Object.entries(CATEGORIES).map(([k, label]) => `
+                <button type="button" class="tab ${state.cat === k ? 'active' : ''}" onclick="selectCategory('${k}')">
+                    ${escapeHtml(label)}
+                </button>
+            `).join('');
+
+            // 3. 絞り込み
+            const qLower = state.q.toLowerCase();
+            const baseFiltered = posts.filter(p => {
+                if (state.cat !== 'all' && p.category !== state.cat) return false;
+                if (state.oshi !== 'all' && (p.oshi || 'none') !== state.oshi) return false;
+                if (state.onlyImage && !p.image) return false;
+                if (qLower !== '') {
+                    const oshiName = (p.oshi && p.oshi !== 'none' && MEMBERS[p.oshi]) ? MEMBERS[p.oshi].name : '';
+                    const hay = `${p.name || ''}\n${p.comment || ''}\n${p.spoiler_label || ''}\n${oshiName}`.toLowerCase();
+                    if (!hay.includes(qLower)) return false;
+                }
+                return true;
+            });
+
+            let hiddenSpoilerCount = 0;
+            const filtered = baseFiltered.filter(p => {
+                if (state.hideSpoiler && p.is_spoiler) {
+                    hiddenSpoilerCount++;
+                    return false;
+                }
+                return true;
+            }).sort((a, b) => Number(b.id) - Number(a.id));
+
+            // トグルUI更新
+            const spoilerBtn = document.getElementById('spoiler_toggle_btn');
+            spoilerBtn.classList.toggle('active', state.hideSpoiler);
+            spoilerBtn.textContent = state.hideSpoiler
+                ? '🛡️ ネタバレ回避モード：ON（解除）'
+                : '🛡️ ネタバレ回避モード：OFF（隠す）';
+
+            const imageBtn = document.getElementById('image_toggle_btn');
+            imageBtn.classList.toggle('active', state.onlyImage);
+            imageBtn.textContent = state.onlyImage
+                ? '📷 画像付き投稿のみ：ON（解除）'
+                : '📷 画像付き投稿のみ：OFF（写真だけ表示）';
+
+            const hiddenNote = document.getElementById('spoiler_hidden_note');
+            if (state.hideSpoiler && hiddenSpoilerCount > 0) {
+                hiddenNote.textContent = `※ ネタバレ投稿 ${hiddenSpoilerCount} 件を非表示中`;
+                hiddenNote.style.display = 'inline';
+            } else {
+                hiddenNote.style.display = 'none';
+            }
+
+            document.getElementById('clear_search_btn').style.display =
+                (state.q !== '' || state.oshi !== 'all') ? 'inline-block' : 'none';
+
+            // 4. ページネーション計算
+            const totalFiltered = filtered.length;
+            const totalPages = Math.max(1, Math.ceil(totalFiltered / PER_PAGE));
+            if (state.page > totalPages) state.page = totalPages;
+            const offset = (state.page - 1) * PER_PAGE;
+            const paged = filtered.slice(offset, offset + PER_PAGE);
+
+            document.getElementById('list_count_info').innerHTML = totalFiltered > 0
+                ? `全 <strong>${totalFiltered}</strong> 件中 <strong>${offset + 1}〜${Math.min(offset + PER_PAGE, totalFiltered)}</strong> 件を表示 （${state.page} / ${totalPages} ページ）`
+                : '全 0 件';
+
+            const statusParts = [];
+            if (state.onlyImage) statusParts.push('【📷画像付きのみ】');
+            if (state.q !== '') statusParts.push(`「${escapeHtml(state.q)}」`);
+            if (state.oshi !== 'all' && MEMBERS[state.oshi]) statusParts.push(`【${escapeHtml(MEMBERS[state.oshi].name)}推し】`);
+            document.getElementById('search_status_info').innerHTML = statusParts.length > 0
+                ? '絞り込み条件：' + statusParts.join(' ')
+                : '';
+
+            // 5. 投稿一覧描画
+            const container = document.getElementById('posts_container');
+            if (totalFiltered === 0) {
+                container.innerHTML = '<p>条件に一致する投稿はまだありません。</p>';
+            } else {
+                container.innerHTML = paged.map(row => {
+                    const catName = CATEGORIES[row.category] || 'その他';
+                    const oshiInfo = (row.oshi && row.oshi !== 'none' && MEMBERS[row.oshi]) ? MEMBERS[row.oshi] : null;
+                    const borderColor = oshiInfo ? oshiInfo.bg : '#e4007f';
+                    const oshiBadge = oshiInfo
+                        ? `<span class="oshi-badge" style="background-color:${oshiInfo.bg};color:${oshiInfo.color};">♥ ${escapeHtml(oshiInfo.name)}推し</span>`
+                        : '';
+                    const replyBadge = row.reply_to
+                        ? `<div><a href="#post-${row.reply_to}" class="reply-badge" onclick="event.preventDefault();jumpToPost(${row.reply_to})">&gt;&gt; No.${row.reply_to} へのリプライ</a></div>`
+                        : '';
+                    const likedClass = state.likedIds.has(Number(row.id)) ? 'liked' : '';
+
+                    return `
+                        <div class="post-card" id="post-${row.id}" style="border-left-color:${borderColor};">
+                            <div class="post-header">
+                                <strong>No.${row.id}</strong>
+                                <span class="badge">${escapeHtml(catName)}</span>
+                                <strong>${escapeHtml(row.name)}</strong>
+                                ${oshiBadge}
+                                <span>(${escapeHtml(row.date || '')})</span>
+                                <span class="reply-link" onclick="setReply(${row.id})">↩ この投稿にリプする</span>
+                            </div>
+                            ${replyBadge}
+                            ${buildPostBodyHtml(row)}
+                            <div class="post-footer">
+                                <button type="button" class="like-btn ${likedClass}" onclick="sendLike(${row.id})">
+                                    🙏 尊い！ <span>${Number(row.likes) || 0}</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // 6. ページネーション描画
+            const nav = document.getElementById('pagination_nav');
+            if (totalPages <= 1) {
+                nav.innerHTML = '';
+            } else {
+                let html = state.page > 1
+                    ? `<button type="button" class="page-link" onclick="changePage(${state.page - 1})">« 前のページ</button>`
+                    : `<span class="page-link disabled">« 前のページ</span>`;
+
+                const startPage = Math.max(1, state.page - 2);
+                const endPage = Math.min(totalPages, state.page + 2);
+
+                if (startPage > 1) {
+                    html += `<button type="button" class="page-link" onclick="changePage(1)">1</button>`;
+                    if (startPage > 2) html += `<span style="color:#999;">…</span>`;
+                }
+
+                for (let p = startPage; p <= endPage; p++) {
+                    html += `<button type="button" class="page-link ${p === state.page ? 'active' : ''}" onclick="changePage(${p})">${p}</button>`;
+                }
+
+                if (endPage < totalPages) {
+                    if (endPage < totalPages - 1) html += `<span style="color:#999;">…</span>`;
+                    html += `<button type="button" class="page-link" onclick="changePage(${totalPages})">${totalPages}</button>`;
+                }
+
+                html += state.page < totalPages
+                    ? `<button type="button" class="page-link" onclick="changePage(${state.page + 1})">次のページ »</button>`
+                    : `<span class="page-link disabled">次のページ »</span>`;
+
+                nav.innerHTML = html;
+            }
+        }
+
+        function exportJson() {
+            const posts = loadPosts();
+            const blob = new Blob([JSON.stringify(posts, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lovelive_bbs_backup.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importJson(input) {
+            const file = input.files?.[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (!Array.isArray(data)) throw new Error('Invalid format');
+                    if (savePosts(data)) {
+                        state.page = 1;
+                        render();
+                        showMessage(`${data.length} 件の投稿データを読み込みました！`);
+                    }
+                } catch (err) {
+                    alert('JSONファイルの形式が正しくありません。');
+                }
+                input.value = '';
+            };
+            reader.readAsText(file);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initSelects();
+            filterOshiOptions();
+            render();
+        });
+    </script>
+
+    <!-- PWA（専用アイコン自動生成・マニフェスト・Service Worker）初期化 -->
+    <script>
+        (function setupSingleFilePWA() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+
+            const grad = ctx.createLinearGradient(0, 0, 512, 512);
+            grad.addColorStop(0, '#ff4d94');
+            grad.addColorStop(1, '#e4007f');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, 512, 512);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(256, 230, 145, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.font = '150px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('🎀', 256, 238);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 46px sans-serif';
+            ctx.fillText('ライバー集会場', 256, 435);
+
+            const iconDataUrl = canvas.toDataURL('image/png');
+
+            const appleIcon = document.getElementById('apple_touch_icon');
+            if (appleIcon) appleIcon.href = iconDataUrl;
+
+            const manifest = {
+                name: 'ラブライバー集会場！掲示板',
+                short_name: 'ライバー掲示板',
+                start_url: location.href,
+                display: 'standalone',
+                background_color: '#fff5f8',
+                theme_color: '#e4007f',
+                icons: [
+                    {
+                        src: iconDataUrl,
+                        sizes: '512x512',
+                        type: 'image/png',
+                        purpose: 'any maskable'
+                    }
+                ]
+            };
+            const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
+            const manifestLink = document.getElementById('pwa_manifest');
+            if (manifestLink) manifestLink.href = URL.createObjectURL(manifestBlob);
+
+            if ('serviceWorker' in navigator && location.protocol === 'https:') {
+                const swCode = `
+                    self.addEventListener('install', (e) => self.skipWaiting());
+                    self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
+                    self.addEventListener('fetch', (e) => e.respondWith(fetch(e.request)));
+                `;
+                const swBlob = new Blob([swCode], { type: 'application/javascript' });
+                navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(() => {});
+            }
+        })();
+    </script>
+</body>
+</html>
